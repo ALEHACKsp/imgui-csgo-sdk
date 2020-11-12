@@ -1,5 +1,11 @@
+intermediates
+output
+.vs
+
 # Prerequisites
 *.d
+*.db
+*.tlog
 
 # Compiled Object files
 *.slo
@@ -10,6 +16,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so
