@@ -25,4 +25,9 @@ namespace hooks {
 		using fn = long(__thiscall*)(void*, IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
 		long __stdcall hook(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params);
 	}
+
+	namespace do_post_screen_effects {
+		using fn = bool(__thiscall*)(void*, view_setup_t*);
+		bool __stdcall hook(view_setup_t* setup);
+	}
 }

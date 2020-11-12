@@ -1,6 +1,6 @@
 #include "../features.hpp"
 
-void misc::movement::bunny_hop(c_usercmd* cmd) {
+void features::misc::bunny_hop(c_usercmd* cmd) {
 	if (!vars::misc::bhop) return;
 
 	const int move_type = csgo::local_player->move_type();

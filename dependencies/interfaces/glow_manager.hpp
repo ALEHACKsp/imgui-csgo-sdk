@@ -3,9 +3,9 @@
 
 class glow_object_definition_t {
 public:
-	void set(float r, float g, float b, float a) {
-		color = vec3_t(r, g, b);
-		alpha = a;
+	void set(float col[4]) {
+		color = vec3_t(col[0], col[1], col[2]);
+		alpha = col[3];
 		render_when_occluded = true;
 		render_when_unoccluded = false;
 		bloom_amount = 1.0f;
@@ -14,7 +14,7 @@ public:
 		return next_free_slot != -2;
 	}
 
-	void* entity;
+	player_t* entity;
 	vec3_t color;
 	float alpha;
 	char unknown0[8];

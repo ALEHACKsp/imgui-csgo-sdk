@@ -7,4 +7,4 @@ A version of [csgo-cheat-base](https://github.com/designer1337/csgo-cheat-base) 
 3. [minhook](https://github.com/TsudaKageyu/minhook)
 
 ## 📸 Image
-![Menu Screenshot](https://i.imgur.com/0lgdPCf.png)
+![Menu Screenshot](https://imgur.com/CVJCWAP.png)

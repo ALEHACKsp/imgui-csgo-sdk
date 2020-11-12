@@ -7,12 +7,14 @@ hooks::create_move::fn create_move_original = nullptr;
 hooks::paint_traverse::fn paint_traverse_original = nullptr;
 hooks::endscene::fn endscene_original = nullptr;
 hooks::reset::fn reset_original = nullptr;
+hooks::do_post_screen_effects::fn do_post_screen_effects_original = nullptr;
 
 bool hooks::initialize() {
 	const auto create_move_target = reinterpret_cast<void*>(get_virtual(interfaces::clientmode, 24));
 	const auto paint_traverse_target = reinterpret_cast<void*>(get_virtual(interfaces::panel, 41));
 	const auto endscene_target = reinterpret_cast<void*>(get_virtual(interfaces::directx, 42));
 	const auto reset_target = reinterpret_cast<void*>(get_virtual(interfaces::directx, 16));
+	const auto do_post_screen_effects_target = reinterpret_cast<void*>(get_virtual(interfaces::clientmode, 44));
 
 	if (MH_Initialize() != MH_OK)
 		throw std::runtime_error("failed to initialize MH_Initialize.");
@@ -29,6 +31,9 @@ bool hooks::initialize() {
 	if (MH_CreateHook(reset_target, &reset::hook, reinterpret_cast<void**>(&reset_original)) != MH_OK)
 		throw std::runtime_error("failed to initialize reset. (outdated index?)");
 
+	if (MH_CreateHook(do_post_screen_effects_target, &do_post_screen_effects::hook, reinterpret_cast<void**>(&do_post_screen_effects_original)) != MH_OK)
+		throw std::runtime_error("failed to initialize do_post_screen_effects. (outdated index?)");
+
 	if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
 		throw std::runtime_error("failed to enable hooks.");
 
@@ -43,8 +48,6 @@ void hooks::release() {
 }
 
 bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd* cmd) {
-	create_move_original(input_sample_frametime, cmd);
-
 	if (!cmd || !cmd->command_number)
 		return false;
 
@@ -58,7 +61,7 @@ bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd*
 	auto old_forwardmove = cmd->forwardmove;
 	auto old_sidemove = cmd->sidemove;
 
-	misc::movement::bunny_hop(cmd);
+	features::misc::bunny_hop(cmd);
 
 	prediction::start(cmd); {
 
@@ -77,7 +80,7 @@ bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd*
 	cmd->viewangles.y = std::clamp(cmd->viewangles.y, -180.0f, 180.0f);
 	cmd->viewangles.z = 0.0f;
 
-	return false;
+	return create_move_original(input_sample_frametime, cmd);
 }
 
 void __stdcall hooks::paint_traverse::hook(unsigned int panel, bool force_repaint, bool allow_force) {
@@ -126,4 +129,10 @@ long __stdcall hooks::reset::hook(IDirect3DDevice9* device, D3DPRESENT_PARAMETER
 	ImGui_ImplDX9_InvalidateDeviceObjects();
 	ImGui_ImplDX9_CreateDeviceObjects();
 	return reset_original(interfaces::directx, device, params);
+}
+
+bool __stdcall hooks::do_post_screen_effects::hook(view_setup_t* setup)
+{
+	features::visuals::glow();
+	return do_post_screen_effects_original(interfaces::clientmode, setup);
 }
