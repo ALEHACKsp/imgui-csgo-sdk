@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "../../source-sdk/math/vector3d.hpp"
+#include "events.h"
 
 namespace utilities {
 	template< typename t >
@@ -11,4 +12,6 @@ namespace utilities {
 	}
 
 	std::uint8_t* pattern_scan(const char* module_name, const char* signature) noexcept;
+
+	inline event_listener listener;
 }

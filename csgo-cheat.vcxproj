@@ -106,6 +106,7 @@
     <ClCompile Include="dependencies\math\math.cpp" />
     <ClCompile Include="dependencies\utilities\console\console.cpp" />
     <ClCompile Include="dependencies\utilities\csgo.cpp" />
+    <ClCompile Include="dependencies\utilities\events.cpp" />
     <ClCompile Include="dependencies\utilities\netvars\netvars.cpp" />
     <ClCompile Include="dependencies\utilities\renderer\renderer.cpp" />
     <ClCompile Include="dependencies\utilities\utilities.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="dependencies\interfaces\i_trace.hpp" />
     <ClInclude Include="dependencies\math\math.hpp" />
     <ClInclude Include="dependencies\utilities\console\console.hpp" />
+    <ClInclude Include="dependencies\utilities\events.h" />
     <ClInclude Include="dependencies\utilities\fnv.hpp" />
     <ClInclude Include="dependencies\utilities\netvars\netvars.hpp" />
     <ClInclude Include="dependencies\utilities\renderer\renderer.hpp" />

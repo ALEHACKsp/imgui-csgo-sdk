@@ -1,5 +1,6 @@
 #include "../dependencies/utilities/csgo.hpp"
 #include "features/features.hpp"
+#include "../dependencies/utilities/utilities.hpp"
 
 unsigned long WINAPI initialize(void* instance) {
 	while (!GetModuleHandleA("serverbrowser.dll"))
@@ -13,6 +14,7 @@ unsigned long WINAPI initialize(void* instance) {
 		interfaces::initialize();
 		render::initialize();
 		hooks::initialize();
+		utilities::listener.setup({ "item_purchase" });
 	}
 
 	catch (const std::runtime_error & error) {
@@ -27,6 +29,7 @@ unsigned long WINAPI initialize(void* instance) {
 }
 
 unsigned long WINAPI release() {
+	utilities::listener.release();
 	hooks::release();
 
 #ifdef _DEBUG
