@@ -5,17 +5,9 @@
 #include "../../dependencies/imgui/imgui_impl_win32.h"
 #include "variables.hpp"
 
-enum menu_tab {
-	TAB_AIMBOT = 0,
-	TAB_VISUALS,
-	TAB_MISC,
-	TAB_CONFIG
-};
-
 namespace menu {
 	inline bool opened = false;
 	inline bool initialized = false;
-	inline menu_tab tab = TAB_AIMBOT;
 	inline HWND hwnd;
 	inline WNDPROC original_wndproc;
 

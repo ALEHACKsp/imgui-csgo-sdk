@@ -62,6 +62,8 @@ bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd*
 	auto old_sidemove = cmd->sidemove;
 
 	features::misc::bunny_hop(cmd);
+	features::misc::rank_reveal(cmd);
+	features::misc::radar();
 
 	prediction::start(cmd); {
 

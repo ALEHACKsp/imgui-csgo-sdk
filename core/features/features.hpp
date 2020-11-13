@@ -9,5 +9,7 @@ namespace features {
 
 	namespace misc {
 		void bunny_hop(c_usercmd* cmd);	
+		void rank_reveal(c_usercmd* cmd);
+		void radar();
 	}
 }
